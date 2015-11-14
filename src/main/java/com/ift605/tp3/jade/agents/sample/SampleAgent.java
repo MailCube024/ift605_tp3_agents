@@ -1,6 +1,6 @@
-package com.ift605.tp3.jade.agents;
+package com.ift605.tp3.jade.agents.sample;
 
-import com.ift605.tp3.jade.agents.behaviors.IncrementBaseNumber;
+import com.ift605.tp3.jade.agents.sample.behaviors.IncrementBaseNumber;
 import jade.core.Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

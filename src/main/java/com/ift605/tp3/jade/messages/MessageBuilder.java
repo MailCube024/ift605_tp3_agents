@@ -18,9 +18,9 @@ public class MessageBuilder {
         return new MessageBuilder(ACLMessage.INFORM);
     }
 
-    public MessageBuilder to(AID... recievers) {
-        for (AID reciever : recievers) {
-            message.addReceiver(reciever);
+    public MessageBuilder to(AID... receivers) {
+        for (AID receiver : receivers) {
+            message.addReceiver(receiver);
         }
         return this;
     }

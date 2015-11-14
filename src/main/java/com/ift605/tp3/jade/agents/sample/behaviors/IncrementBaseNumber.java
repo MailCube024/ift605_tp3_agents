@@ -1,4 +1,4 @@
-package com.ift605.tp3.jade.agents.behaviors;
+package com.ift605.tp3.jade.agents.sample.behaviors;
 
 import com.ift605.tp3.jade.tools.ContainerKiller;
 import jade.core.Agent;
