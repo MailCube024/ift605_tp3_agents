@@ -1,11 +1,11 @@
 package com.ift605.tp3.jade.messages;
 
-import com.ift605.tp3.jade.tools.SerializationHelper;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import udes.ds.agent.Equation;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Created by Michael on 2015-11-08.
@@ -46,6 +46,11 @@ public class MessageBuilder {
         return this;
     }
 
+    public MessageBuilder withObjectContent(Serializable content) throws IOException {
+        message.setContentObject(content);
+        return this;
+    }
+
     public ACLMessage build() {
         return message;
     }
@@ -56,7 +61,7 @@ public class MessageBuilder {
 
     public MessageBuilder withContent(Equation eq) {
         try {
-            return withContent(new String(SerializationHelper.serialize(eq)));
+            return withObjectContent(eq);
         } catch (IOException e) {
             e.printStackTrace();
         }

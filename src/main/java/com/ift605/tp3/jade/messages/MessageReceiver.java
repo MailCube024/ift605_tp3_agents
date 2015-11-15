@@ -1,12 +1,10 @@
 package com.ift605.tp3.jade.messages;
 
-import com.ift605.tp3.jade.tools.SerializationHelper;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
 import udes.ds.agent.Equation;
-
-import java.io.IOException;
 
 /**
  * Created by Michael on 2015-11-08.
@@ -37,12 +35,11 @@ public class MessageReceiver {
         ACLMessage message = agent.receive();
         if (message != null) {
             try {
-                contentReceiver.onMessage((Equation) SerializationHelper.deserialize(message.getContent().getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+                contentReceiver.onMessage((Equation) message.getContentObject());
+            } catch (UnreadableException e) {
                 e.printStackTrace();
             }
+
         } else
             behavior.block();
     }
