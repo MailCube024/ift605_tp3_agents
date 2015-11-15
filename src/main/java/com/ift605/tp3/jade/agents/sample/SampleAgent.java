@@ -1,6 +1,6 @@
 package com.ift605.tp3.jade.agents.sample;
 
-import com.ift605.tp3.jade.agents.sample.behaviors.IncrementBaseNumber;
+import com.ift605.tp3.jade.agents.sample.behaviors.TestEquationBehavior;
 import jade.core.Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +13,10 @@ public class SampleAgent extends Agent {
 
     @Override
     public void setup() {
-        final String otherAgentName = (String) this.getArguments()[0];
-        addBehaviour(new IncrementBaseNumber(this, otherAgentName));
+        final String basicAgentName = (String) this.getArguments()[0];
+        final String constantAgentName = (String) this.getArguments()[1];
+        //addBehaviour(new IncrementBaseNumber(this, otherAgentName));
+        addBehaviour(new TestEquationBehavior(basicAgentName, constantAgentName));
     }
 
     @Override

@@ -13,6 +13,15 @@ import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
  */
 public class DerivateConstantEquationBehaviour extends Behaviour {
     private static final Logger logger = LoggerFactory.getLogger(DerivateConstantEquationBehaviour.class);
+    private final String otherAgent;
+
+    public DerivateConstantEquationBehaviour() {
+        otherAgent = "";
+    }
+
+    public DerivateConstantEquationBehaviour(String otherAgentName) {
+        this.otherAgent = otherAgentName;
+    }
 
     @Override
     public void action() {
@@ -23,7 +32,7 @@ public class DerivateConstantEquationBehaviour extends Behaviour {
             Constant derivated = new Constant(0);
             logger.info("Derivated constant equation to: " + derivated.getUserReadableString());
 
-            myAgent.send(inform().to().withContent(derivated).build());
+            myAgent.send(inform().toLocal(otherAgent).withContent(derivated).build());
         });
     }
 

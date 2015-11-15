@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.basic;
 
+import com.ift605.tp3.jade.agents.basic.behaviors.DerivateBasicEquationBehaviour;
 import jade.core.Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,8 @@ public class BasicEquationAgent extends Agent {
 
     @Override
     public void setup() {
-        super.setup();
+        final String otherAgentName = (String) this.getArguments()[0];
+        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
     }
 
     @Override

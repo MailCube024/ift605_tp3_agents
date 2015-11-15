@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.constant;
 
+import com.ift605.tp3.jade.agents.constant.behaviors.DerivateConstantEquationBehaviour;
 import jade.core.Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,8 @@ public class ConstantAgent extends Agent {
 
     @Override
     public void setup() {
-        super.setup();
+        final String otherAgentName = (String) this.getArguments()[0];
+        addBehaviour(new DerivateConstantEquationBehaviour(otherAgentName));
     }
 
     @Override
