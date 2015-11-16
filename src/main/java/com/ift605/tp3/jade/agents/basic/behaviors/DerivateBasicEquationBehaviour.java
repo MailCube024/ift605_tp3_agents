@@ -28,6 +28,7 @@ public class DerivateBasicEquationBehaviour extends Behaviour {
         listen(myAgent, this).forEquation(equation -> {
             BasicEquation basic = (BasicEquation) equation;
             logger.info("Received basic equation to derivate: " + basic.getUserReadableString());
+            logger.info("Type of equation: name (" + equation.getClass().getSimpleName() + ")");
 
             BasicEquation derivated = new BasicEquation(basic.getCoefficient() * basic.getExponent(), basic.getExponent() - 1);
             logger.info("Derivated basic equation to: " + derivated.getUserReadableString());
