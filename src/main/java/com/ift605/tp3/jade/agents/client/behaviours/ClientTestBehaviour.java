@@ -24,6 +24,7 @@ public class ClientTestBehaviour extends Behaviour {
     public ClientTestBehaviour(String basicAgentName, String constantAgentName) {
         this.basicAgentName = basicAgentName;
         this.constantAgentName = constantAgentName;
+        this.state = State.BASIC;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class ClientTestBehaviour extends Behaviour {
     }
 
     private void sendBasicEquation() {
+        logger.info("Sending basic equation to derivation");
         myAgent.send(request().toLocal(basicAgentName).withContent(new BasicEquation(3, 4)).build());
         listen(myAgent, this).forEquation((derivated) -> {
             logger.info("Received " + ((AbstractEquation) derivated).getUserReadableString());
@@ -53,6 +55,8 @@ public class ClientTestBehaviour extends Behaviour {
     }
 
     private void sendConstantEquation() {
+        logger.info("Sending constant equation to derivation");
+
         myAgent.send(request().toLocal(constantAgentName).withContent(new Constant(3)).build());
         listen(myAgent, this).forEquation((derivated) -> {
             logger.info("Received " + ((AbstractEquation) derivated).getUserReadableString());

@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.client;
 
+import com.ift605.tp3.jade.agents.client.behaviours.ClientTestBehaviour;
 import jade.core.Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,14 @@ public class ClientAgent extends Agent {
 
     @Override
     public void setup() {
-        super.setup();
+        logger.info("Client agent started");
+
+        final String basicAgentName = (String) getArguments()[0];
+        final String constantAgentName = (String) getArguments()[1];
+        addBehaviour(new ClientTestBehaviour(basicAgentName, constantAgentName));
     }
 
     @Override
     public void takeDown() {
-        super.takeDown();
     }
 }

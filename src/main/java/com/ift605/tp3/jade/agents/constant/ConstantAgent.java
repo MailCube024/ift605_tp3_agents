@@ -35,7 +35,7 @@ public class ConstantAgent extends Agent {
 //        addBehaviour(new DerivateConstantEquationBehaviour(otherAgentName));
         logger.info("Constant Agent Running!");
         final String clientAgent = (String) this.getArguments()[0];
-        addBehaviour(new DerivateBasicEquationBehaviour(clientAgent));
+       addBehaviour(new DerivateConstantEquationBehaviour(clientAgent));
     }
 
     @Override
