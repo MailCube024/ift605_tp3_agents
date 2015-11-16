@@ -13,8 +13,9 @@ public class BasicEquationAgent extends Agent {
 
     @Override
     public void setup() {
-        final String otherAgentName = (String) this.getArguments()[0];
-        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
+        logger.info("Basic Equation Agent Started!");
+//        final String otherAgentName = (String) this.getArguments()[0];
+//        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
     }
 
     @Override
