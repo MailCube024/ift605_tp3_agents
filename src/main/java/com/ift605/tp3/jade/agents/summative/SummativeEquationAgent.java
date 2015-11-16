@@ -22,7 +22,7 @@ public class SummativeEquationAgent extends Agent {
 
             ServiceDescription sd = new ServiceDescription();
             sd.setName("SummativeEquationAgent");
-            sd.setType("SummativeEquationAgent");
+            sd.setType("Derivation");
             dfd.addServices(sd);
             DFService.register(this, dfd);
         } catch (FIPAException e) {

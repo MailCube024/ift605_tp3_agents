@@ -8,6 +8,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.util.leap.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,13 @@ public class RequestDispatchBehaviour extends Behaviour {
         listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forEquation(equation -> {
             String equationClass = equation.getClass().getSimpleName();
             logger.info("Request to derivate equation type : " + equationClass);
-            myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equation).build());
+            if(searchDFAgent(equationClass) != null) {
+                logger.info("Search found an agent forr this class : " + equationClass);
+                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equation).build());
+            }
+            else {
+                logger.info("Message dropped : Unknown equation class");
+            }
         });
     }
 
@@ -37,17 +44,24 @@ public class RequestDispatchBehaviour extends Behaviour {
     private AID searchDFAgent(String equationClassType){
         try{
             ServiceDescription templateSd = new ServiceDescription();
-            templateSd.setType(equationClassType);
+            templateSd.setType("Derivation");
 
             DFAgentDescription template = new DFAgentDescription();
             template.addServices(templateSd);
 
             DFAgentDescription[] results = DFService.search(myAgent, template);
             if(results.length > 0){
-                logger.info("Found agent class : " + equationClassType);
-                return results[0].getName();
-            }
+                for(DFAgentDescription dfd : results){
+                    Iterator it = dfd.getAllServices();
+                    while (it.hasNext()) {
+                        ServiceDescription sd = (ServiceDescription) it.next();
+                        if(sd.getName().equals(equationClassType))
+                            return dfd.getName();
+                    }
+                }
 
+                logger.info("Found agent class : " + equationClassType);
+            }
         } catch (FIPAException ex) {
             logger.error("Exception : ", ex);
         }
