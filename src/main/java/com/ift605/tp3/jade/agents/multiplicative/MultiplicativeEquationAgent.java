@@ -1,6 +1,10 @@
 package com.ift605.tp3.jade.agents.multiplicative;
 
 import jade.core.Agent;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +16,18 @@ public class MultiplicativeEquationAgent extends Agent {
 
     @Override
     public void setup() {
-        super.setup();
+        try{
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+
+            ServiceDescription sd = new ServiceDescription();
+            sd.setName("MultiplicativeEquationAgent");
+            sd.setType("MultiplicativeEquationAgent");
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+        } catch (FIPAException e) {
+            System.out.println(e.getACLMessage());
+        }
     }
 
     @Override
