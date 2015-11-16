@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.constant;
 
+import com.ift605.tp3.jade.agents.basic.behaviors.DerivateBasicEquationBehaviour;
 import com.ift605.tp3.jade.agents.constant.behaviors.DerivateConstantEquationBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -17,21 +18,24 @@ public class ConstantAgent extends Agent {
 
     @Override
     public void setup() {
-        try{
-            DFAgentDescription dfd = new DFAgentDescription();
-            dfd.setName(getAID());
-
-            ServiceDescription sd = new ServiceDescription();
-            sd.setName("ConstantAgent");
-            sd.setType("ConstantAgent");
-            dfd.addServices(sd);
-            DFService.register(this, dfd);
-        } catch (FIPAException e) {
-            System.out.println(e.getACLMessage());
-        }
-
-        final String otherAgentName = (String) this.getArguments()[0];
-        addBehaviour(new DerivateConstantEquationBehaviour(otherAgentName));
+//        try{
+//            DFAgentDescription dfd = new DFAgentDescription();
+//            dfd.setName(getAID());
+//
+//            ServiceDescription sd = new ServiceDescription();
+//            sd.setName("ConstantAgent");
+//            sd.setType("ConstantAgent");
+//            dfd.addServices(sd);
+//            DFService.register(this, dfd);
+//        } catch (FIPAException e) {
+//            System.out.println(e.getACLMessage());
+//        }
+//
+//        final String otherAgentName = (String) this.getArguments()[0];
+//        addBehaviour(new DerivateConstantEquationBehaviour(otherAgentName));
+        logger.info("Constant Agent Running!");
+        final String clientAgent = (String) this.getArguments()[0];
+        addBehaviour(new DerivateBasicEquationBehaviour(clientAgent));
     }
 
     @Override

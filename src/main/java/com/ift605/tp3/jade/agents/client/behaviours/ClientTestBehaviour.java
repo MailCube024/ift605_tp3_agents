@@ -1,4 +1,4 @@
-package com.ift605.tp3.jade.agents.sample.behaviors;
+package com.ift605.tp3.jade.agents.client.behaviours;
 
 import com.ift605.tp3.jade.tools.ContainerKiller;
 import jade.core.behaviours.Behaviour;
@@ -12,16 +12,16 @@ import static com.ift605.tp3.jade.messages.MessageBuilder.request;
 import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
 
 /**
- * Created by Michael on 2015-11-15.
+ * Created by Michaël on 11/16/2015.
  */
-public class TestEquationBehavior extends Behaviour {
-    private static final Logger logger = LoggerFactory.getLogger(TestEquationBehavior.class);
+public class ClientTestBehaviour extends Behaviour {
+    private static final Logger logger = LoggerFactory.getLogger(ClientTestBehaviour.class);
 
     private final String constantAgentName;
     private final String basicAgentName;
     private State state;
 
-    public TestEquationBehavior(String basicAgentName, String constantAgentName) {
+    public ClientTestBehaviour(String basicAgentName, String constantAgentName) {
         this.basicAgentName = basicAgentName;
         this.constantAgentName = constantAgentName;
     }
