@@ -23,7 +23,7 @@ public class BasicEquationAgent extends Agent {
 //
 //            ServiceDescription sd = new ServiceDescription();
 //            sd.setName("BasicEquationAgent");
-//            sd.setType("BasicEquationAgent");
+//            sd.setType("Derivation");
 //            dfd.addServices(sd);
 //            DFService.register(this, dfd);
 //        } catch (FIPAException e) {

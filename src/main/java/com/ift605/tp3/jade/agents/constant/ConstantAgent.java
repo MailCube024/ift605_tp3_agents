@@ -24,7 +24,7 @@ public class ConstantAgent extends Agent {
 //
 //            ServiceDescription sd = new ServiceDescription();
 //            sd.setName("ConstantAgent");
-//            sd.setType("ConstantAgent");
+//            sd.setType("Derivation");
 //            dfd.addServices(sd);
 //            DFService.register(this, dfd);
 //        } catch (FIPAException e) {

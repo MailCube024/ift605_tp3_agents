@@ -22,7 +22,7 @@ public class MultiplicativeEquationAgent extends Agent {
 
             ServiceDescription sd = new ServiceDescription();
             sd.setName("MultiplicativeEquationAgent");
-            sd.setType("MultiplicativeEquationAgent");
+            sd.setType("Derivation");
             dfd.addServices(sd);
             DFService.register(this, dfd);
         } catch (FIPAException e) {

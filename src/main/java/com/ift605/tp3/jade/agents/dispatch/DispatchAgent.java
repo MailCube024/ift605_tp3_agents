@@ -24,7 +24,7 @@ public class DispatchAgent extends Agent{
 
             ServiceDescription sd = new ServiceDescription();
             sd.setName("DispatchAgent");
-            sd.setType("DispatchAgent");
+            sd.setType("Dispatch");
             dfd.addServices(sd);
             DFService.register(this, dfd);
         } catch (FIPAException e) {
