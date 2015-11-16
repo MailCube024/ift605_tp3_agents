@@ -30,8 +30,9 @@ public class BasicEquationAgent extends Agent {
             System.out.println(e.getACLMessage());
         }
 
-        final String otherAgentName = (String) this.getArguments()[0];
-        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
+        logger.info("Basic Equation Agent Started!");
+//        final String otherAgentName = (String) this.getArguments()[0];
+//        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
     }
 
     @Override
