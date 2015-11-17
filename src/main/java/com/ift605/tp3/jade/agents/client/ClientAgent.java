@@ -46,7 +46,7 @@ public class ClientAgent extends GuiAgent {
             case ClientConstants.DERIVATE:
                 logger.info("Derivation command received. Sending to system...");
                 Equation eq = (Equation) guiEvent.getParameter(0);
-                send(request().to(dispatcher).withContent(eq).build());
+                send(request().to(getAID()).withContent(eq).build());
                 break;
             case ClientConstants.RESPONSE:
                 logger.info("Received derivation from system. Sending output");
