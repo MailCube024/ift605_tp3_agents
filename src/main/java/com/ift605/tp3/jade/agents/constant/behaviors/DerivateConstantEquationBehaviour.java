@@ -25,8 +25,8 @@ public class DerivateConstantEquationBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this).forEquation(equation -> {
-            Constant constant = (Constant) equation;
+        listen(myAgent, this).forRequest(equationMessage -> {
+            Constant constant = (Constant) equationMessage.getEquation();
             logger.info("Received basic equation to derivate: " + constant.getUserReadableString());
 
             Constant derivated = new Constant(0);

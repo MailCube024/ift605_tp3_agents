@@ -48,8 +48,8 @@ public class ClientTestBehaviour extends Behaviour {
     private void sendBasicEquation() {
         logger.info("Sending basic equation to derivation");
         myAgent.send(request().toLocal(basicAgentName).withContent(new BasicEquation(3, 4)).build());
-        listen(myAgent, this).forEquation((derivated) -> {
-            logger.info("Received " + ((AbstractEquation) derivated).getUserReadableString());
+        listen(myAgent, this).forRequest((derivated) -> {
+            logger.info("Received " + ((AbstractEquation) derivated.getEquation()).getUserReadableString());
             state = State.CONSTANT;
         });
     }
@@ -58,8 +58,8 @@ public class ClientTestBehaviour extends Behaviour {
         logger.info("Sending constant equation to derivation");
 
         myAgent.send(request().toLocal(constantAgentName).withContent(new Constant(3)).build());
-        listen(myAgent, this).forEquation((derivated) -> {
-            logger.info("Received " + ((AbstractEquation) derivated).getUserReadableString());
+        listen(myAgent, this).forRequest((derivated) -> {
+            logger.info("Received " + ((AbstractEquation) derivated.getEquation()).getUserReadableString());
             state = State.DONE;
         });
     }

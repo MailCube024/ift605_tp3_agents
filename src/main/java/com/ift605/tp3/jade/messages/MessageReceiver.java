@@ -43,7 +43,7 @@ public class MessageReceiver {
         }
     }
 
-    public void forEquation(DerivateEquationContentReceiver contentReceiver) {
+    public void forRequest(EquationMessageContentReceiver contentReceiver) {
         ACLMessage message;
 
         if (msgTemplate == null)
@@ -53,7 +53,7 @@ public class MessageReceiver {
 
         if (message != null) {
             try {
-                contentReceiver.onMessage((Equation) message.getContentObject());
+                contentReceiver.onMessage(new EquationMessage(message.getSender(), (Equation) message.getContentObject()));
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }
