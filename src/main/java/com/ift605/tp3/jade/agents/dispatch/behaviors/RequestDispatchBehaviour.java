@@ -23,14 +23,13 @@ public class RequestDispatchBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forEquation(equation -> {
-            String equationClass = equation.getClass().getSimpleName();
+        listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
+            String equationClass = equationMessage.getEquation().getClass().getSimpleName();
             logger.info("Request to derivate equation type : " + equationClass);
-            if(searchDFAgent(equationClass) != null) {
-                logger.info("Search found an agent forr this class : " + equationClass);
-                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equation).build());
-            }
-            else {
+            if (searchDFAgent(equationClass) != null) {
+                logger.info("Search found an agent for this class : " + equationClass);
+                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equationMessage.getEquation()).build());
+            } else {
                 logger.info("Message dropped : Unknown equation class");
             }
         });

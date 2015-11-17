@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.basic.behaviors;
 
+import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,10 @@ public class DerivateBasicEquationBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this).forEquation(equation -> {
-            BasicEquation basic = (BasicEquation) equation;
+        listen(myAgent, this).forRequest(equationMessage -> {
+            BasicEquation basic = (BasicEquation) equationMessage.getEquation();
             logger.info("Received basic equation to derivate: " + basic.getUserReadableString());
-            logger.info("Type of equation: name (" + equation.getClass().getSimpleName() + ")");
+            logger.info("Type of equation: name (" + equationMessage.getEquation().getClass().getSimpleName() + ")");
 
             BasicEquation derivated = new BasicEquation(basic.getCoefficient() * basic.getExponent(), basic.getExponent() - 1);
             logger.info("Derivated basic equation to: " + derivated.getUserReadableString());

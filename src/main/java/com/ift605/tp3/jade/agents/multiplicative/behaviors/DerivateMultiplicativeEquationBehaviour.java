@@ -17,8 +17,8 @@ public class DerivateMultiplicativeEquationBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this).forEquation(equation -> {
-            MultiplicativeEquation multiplicative = (MultiplicativeEquation) equation;
+        listen(myAgent, this).forRequest(equationMessage -> {
+            MultiplicativeEquation multiplicative = (MultiplicativeEquation) equationMessage.getEquation();
             logger.info("Received multiplicative equation to derivate: " + multiplicative.getUserReadableString());
 
             //TODO: Request first derivation

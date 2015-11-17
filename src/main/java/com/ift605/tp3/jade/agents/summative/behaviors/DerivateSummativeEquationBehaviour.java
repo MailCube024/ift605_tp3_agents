@@ -17,8 +17,8 @@ public class DerivateSummativeEquationBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this).forEquation(equation -> {
-            SummativeEquation summative = (SummativeEquation) equation;
+        listen(myAgent, this).forRequest(equationMessage -> {
+            SummativeEquation summative = (SummativeEquation) equationMessage.getEquation();
             logger.info("Received summative equation to derivate: " + summative.getUserReadableString());
 
             //TODO: Request first derivation
