@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.client.behaviours;
 
+import com.ift605.tp3.jade.messages.EquationMessage;
 import com.ift605.tp3.jade.tools.ContainerKiller;
 import jade.core.behaviours.Behaviour;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class ClientTestBehaviour extends Behaviour {
 
     private void sendBasicEquation() {
         logger.info("Sending basic equation to derivation");
-        myAgent.send(request().toLocal(basicAgentName).withContent(new BasicEquation(3, 4)).build());
+        myAgent.send(request().toLocal(basicAgentName).withContent(new EquationMessage(myAgent.getAID(), new BasicEquation(3, 4))).build());
         listen(myAgent, this).forRequest((derivated) -> {
             logger.info("Received " + ((AbstractEquation) derivated.getEquation()).getUserReadableString());
             state = State.CONSTANT;
@@ -56,8 +57,7 @@ public class ClientTestBehaviour extends Behaviour {
 
     private void sendConstantEquation() {
         logger.info("Sending constant equation to derivation");
-
-        myAgent.send(request().toLocal(constantAgentName).withContent(new Constant(3)).build());
+        myAgent.send(request().toLocal(constantAgentName).withContent(new EquationMessage(myAgent.getAID(), new Constant(3))).build());
         listen(myAgent, this).forRequest((derivated) -> {
             logger.info("Received " + ((AbstractEquation) derivated.getEquation()).getUserReadableString());
             state = State.DONE;

@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.constant.behaviors;
 
+import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +14,6 @@ import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
  */
 public class DerivateConstantEquationBehaviour extends Behaviour {
     private static final Logger logger = LoggerFactory.getLogger(DerivateConstantEquationBehaviour.class);
-    private final String otherAgent;
-
-    public DerivateConstantEquationBehaviour() {
-        otherAgent = "";
-    }
-
-    public DerivateConstantEquationBehaviour(String otherAgentName) {
-        this.otherAgent = otherAgentName;
-    }
 
     @Override
     public void action() {
@@ -32,7 +24,7 @@ public class DerivateConstantEquationBehaviour extends Behaviour {
             Constant derivated = new Constant(0);
             logger.info("Derivated constant equation to: " + derivated.getUserReadableString());
 
-            myAgent.send(inform().toLocal(otherAgent).withContent(derivated).build());
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), derivated)).build());
         });
     }
 

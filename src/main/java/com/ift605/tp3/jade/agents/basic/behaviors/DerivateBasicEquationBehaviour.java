@@ -14,15 +14,6 @@ import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
  */
 public class DerivateBasicEquationBehaviour extends Behaviour {
     private static final Logger logger = LoggerFactory.getLogger(DerivateBasicEquationBehaviour.class);
-    private final String otherAgent;
-
-    public DerivateBasicEquationBehaviour() {
-        otherAgent = "";
-    }
-
-    public DerivateBasicEquationBehaviour(String otherAgentName) {
-        this.otherAgent = otherAgentName;
-    }
 
     @Override
     public void action() {
@@ -34,7 +25,7 @@ public class DerivateBasicEquationBehaviour extends Behaviour {
             BasicEquation derivated = new BasicEquation(basic.getCoefficient() * basic.getExponent(), basic.getExponent() - 1);
             logger.info("Derivated basic equation to: " + derivated.getUserReadableString());
 
-            myAgent.send(inform().toLocal(otherAgent).withContent(derivated).build());
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), derivated)).build());
         });
     }
 

@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.multiplicative.behaviors;
 
+import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ public class DerivateMultiplicativeEquationBehaviour extends Behaviour {
             SummativeEquation derivated = new SummativeEquation(first, second);
             logger.info("Derivated multiplicative equation to:" + derivated.getUserReadableString());
 
-            myAgent.send(inform().to().withContent(derivated).build());
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), derivated)).build());
         });
     }
 

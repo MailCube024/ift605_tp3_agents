@@ -20,7 +20,7 @@ public class InformDispatchBehaviour extends Behaviour {
         listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.INFORM)).forRequest(equationMessage -> {
             logger.info("Inform sender with AID : " + equationMessage.getSender() + " with equation of type : " +
                             equationMessage.getEquation().getClass().getSimpleName());
-            myAgent.send(inform().to(equationMessage.getSender()).withContent(equationMessage.getEquation()).build());
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(equationMessage).build());
         });
     }
 
