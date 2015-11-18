@@ -26,12 +26,12 @@ public class ClientAgent extends GuiAgent {
 
     @Override
     public void setup() {
-        logger.info("Client agent started");
-
         form = new DerivationForm(this);
         form.setVisible(true);
 
         addBehaviour(new ClientListenerBehaviour(this));
+
+        logger.info("Client agent started");
     }
 
     @Override

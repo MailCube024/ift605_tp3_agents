@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.sinus;
 
+import com.ift605.tp3.jade.agents.sinus.behaviours.DerivateSinusEquationBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -28,6 +29,10 @@ public class SinusEquationAgent extends Agent {
         } catch (FIPAException e) {
             System.out.println(e.getACLMessage());
         }
+
+        addBehaviour(new DerivateSinusEquationBehaviour());
+
+        logger.info("Sinus agent started");
     }
 
     @Override

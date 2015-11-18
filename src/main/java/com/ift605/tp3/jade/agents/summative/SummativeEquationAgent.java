@@ -1,5 +1,7 @@
 package com.ift605.tp3.jade.agents.summative;
 
+import com.ift605.tp3.jade.agents.sinus.behaviours.DerivateSinusEquationBehaviour;
+import com.ift605.tp3.jade.agents.summative.behaviors.DerivateSummativeEquationBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -28,6 +30,10 @@ public class SummativeEquationAgent extends Agent {
         } catch (FIPAException e) {
             System.out.println(e.getACLMessage());
         }
+
+        addBehaviour(new DerivateSummativeEquationBehaviour());
+
+        logger.info("Summative agent started");
     }
 
     @Override
