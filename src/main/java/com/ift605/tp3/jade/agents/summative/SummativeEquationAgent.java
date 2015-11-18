@@ -1,6 +1,5 @@
 package com.ift605.tp3.jade.agents.summative;
 
-import com.ift605.tp3.jade.agents.sinus.behaviours.DerivateSinusEquationBehaviour;
 import com.ift605.tp3.jade.agents.summative.behaviors.DerivateSummativeEquationBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;

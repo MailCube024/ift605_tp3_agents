@@ -1,7 +1,9 @@
 package com.ift605.tp3.jade.agents.constant.behaviors;
 
+import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
+import jade.lang.acl.ACLMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import udes.ds.agent.Constant;
@@ -18,13 +20,15 @@ public class DerivateConstantEquationBehaviour extends Behaviour {
     @Override
     public void action() {
         listen(myAgent, this).forRequest(equationMessage -> {
-            Constant constant = (Constant) equationMessage.getEquation();
+            EquationBinding binding = equationMessage.getEquation();
+            Constant constant = (Constant) binding.getOriginalEquation();
             logger.info("Received basic equation to derivate: " + constant.getUserReadableString());
 
             Constant derivated = new Constant(0);
             logger.info("Derivated constant equation to: " + derivated.getUserReadableString());
 
-            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), derivated)).build());
+            binding.setResultEquation(derivated);
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), binding)).build());
         });
     }
 

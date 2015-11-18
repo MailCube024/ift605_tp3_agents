@@ -29,7 +29,7 @@ public class ClientListenerBehaviour extends Behaviour {
         listen(agent,this, MessageTemplate.MatchPerformative(ACLMessage.INFORM)).forRequest(response -> {
             logger.info("Received response from request for derivation.");
             GuiEvent ge = new GuiEvent(this, ClientConstants.RESPONSE);
-            ge.addParameter(response.getEquation());
+            ge.addParameter(response.getEquation().getResultEquation());
             agent.postGuiEvent(ge);
         });
     }
