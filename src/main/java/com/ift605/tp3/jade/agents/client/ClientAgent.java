@@ -3,6 +3,7 @@ package com.ift605.tp3.jade.agents.client;
 import com.ift605.tp3.client.DerivationForm;
 import com.ift605.tp3.constants.ClientConstants;
 import com.ift605.tp3.jade.agents.client.behaviours.ClientListenerBehaviour;
+import com.ift605.tp3.jade.helper.DispatcherFinder;
 import jade.core.AID;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
@@ -26,11 +27,10 @@ public class ClientAgent extends GuiAgent {
     public void setup() {
         logger.info("Client agent started");
 
-//        final String basicAgentName = (String) getArguments()[0];
-//        final String constantAgentName = (String) getArguments()[1];
-//        addBehaviour(new ClientTestBehaviour(basicAgentName, constantAgentName));
         form = new DerivationForm(this);
         form.setVisible(true);
+
+        AID dispatcher = DispatcherFinder.getDispatcherAID(this);
 
         addBehaviour(new ClientListenerBehaviour(this));
     }
@@ -46,7 +46,7 @@ public class ClientAgent extends GuiAgent {
             case ClientConstants.DERIVATE:
                 logger.info("Derivation command received. Sending to system...");
                 Equation eq = (Equation) guiEvent.getParameter(0);
-                send(request().to(getAID()).withContent(eq).build());
+                send(request().to(dispatcher).withContent(eq).build());
                 break;
             case ClientConstants.RESPONSE:
                 logger.info("Received derivation from system. Sending output");

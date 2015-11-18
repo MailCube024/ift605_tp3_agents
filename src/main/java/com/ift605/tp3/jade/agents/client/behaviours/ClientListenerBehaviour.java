@@ -25,18 +25,18 @@ public class ClientListenerBehaviour extends Behaviour {
 
     @Override
     public void action() {
-//        listen(agent,this, MessageTemplate.MatchPerformative(ACLMessage.INFORM)).forRequest(response -> {
-//            logger.info("Received response from request for derivation.");
-//            GuiEvent ge = new GuiEvent(this, ClientConstants.RESPONSE);
-//            ge.addParameter(response.getEquation());
-//            agent.postGuiEvent(ge);
-//        });
-        listen(agent,this).forRequest(response -> {
+        listen(agent,this, MessageTemplate.MatchPerformative(ACLMessage.INFORM)).forRequest(response -> {
             logger.info("Received response from request for derivation.");
             GuiEvent ge = new GuiEvent(this, ClientConstants.RESPONSE);
             ge.addParameter(response.getEquation());
             agent.postGuiEvent(ge);
         });
+//        listen(agent,this).forRequest(response -> {
+//            logger.info("Received response from request for derivation.");
+//            GuiEvent ge = new GuiEvent(this, ClientConstants.RESPONSE);
+//            ge.addParameter(response.getEquation());
+//            agent.postGuiEvent(ge);
+//        });
     }
 
     @Override
