@@ -6,6 +6,7 @@ import com.ift605.tp3.jade.agents.client.behaviours.ClientListenerBehaviour;
 import com.ift605.tp3.jade.helper.DispatcherFinder;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.AID;
+import jade.domain.introspection.ACLMessage;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import org.slf4j.Logger;

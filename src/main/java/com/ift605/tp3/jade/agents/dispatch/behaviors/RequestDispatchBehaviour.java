@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.dispatch.behaviors;
 
+import com.ift605.tp3.jade.messages.EquationBinding;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
@@ -24,11 +25,13 @@ public class RequestDispatchBehaviour extends Behaviour {
     @Override
     public void action() {
         listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
-            String equationClass = equationMessage.getEquation().getClass().getSimpleName() + "Agent";
+            EquationBinding binding = equationMessage.getEquation();
+            String equationClass = binding.getOriginalEquation().getClass().getSimpleName() + "Agent";
             logger.info("Request to derivate equation type : " + equationClass);
-            if (searchDFAgent(equationClass) != null) {
+            AID agentID = searchDFAgent(equationClass);
+            if (agentID != null) {
                 logger.info("Search found an agent for this class : " + equationClass);
-                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equationMessage).build());
+                myAgent.send(request().to(agentID).withContent(equationMessage).build());
             } else {
                 logger.error("Message dropped : Unknown equation class");
             }

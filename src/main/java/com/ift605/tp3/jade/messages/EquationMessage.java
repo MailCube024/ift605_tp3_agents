@@ -8,11 +8,31 @@ import udes.ds.agent.Equation;
  */
 public class EquationMessage {
     private AID sender;
-    private Equation equation;
+    private EquationBinding equation;
+    private int performative;
 
     public EquationMessage(AID sender, Equation equation){
         this.sender = sender;
+        this.equation = new EquationBinding(equation, null);
+        this.performative = 0;
+    }
+
+    public EquationMessage(AID sender, Equation equation, int performative){
+        this.sender = sender;
+        this.equation = new EquationBinding(equation, null);
+        this.performative = performative;
+    }
+
+    public EquationMessage(AID sender, EquationBinding equation){
+        this.sender = sender;
         this.equation = equation;
+        this.performative = 0;
+    }
+
+    public EquationMessage(AID sender, EquationBinding equation, int performative){
+        this.sender = sender;
+        this.equation = equation;
+        this.performative = performative;
     }
 
     public AID getSender() {
@@ -23,11 +43,19 @@ public class EquationMessage {
         this.sender = sender;
     }
 
-    public Equation getEquation() {
+    public EquationBinding getEquation() {
         return equation;
     }
 
-    public void setEquation(Equation equation) {
+    public void setEquation(EquationBinding equation) {
         this.equation = equation;
+    }
+
+    public int getPerformative() {
+        return performative;
+    }
+
+    public void setPerformative(int performative) {
+        this.performative = performative;
     }
 }

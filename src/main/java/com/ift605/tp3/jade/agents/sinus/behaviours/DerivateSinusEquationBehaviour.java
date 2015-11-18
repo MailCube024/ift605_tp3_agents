@@ -1,11 +1,14 @@
 package com.ift605.tp3.jade.agents.sinus.behaviours;
 
+import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
+import jade.lang.acl.ACLMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import udes.ds.agent.AbstractEquation;
 import udes.ds.agent.CosinusEquation;
+import udes.ds.agent.Equation;
 import udes.ds.agent.SinusEquation;
 
 import static com.ift605.tp3.jade.messages.MessageBuilder.inform;
@@ -20,7 +23,8 @@ public class DerivateSinusEquationBehaviour extends Behaviour {
     @Override
     public void action() {
         listen(myAgent, this).forRequest(equationMessage -> {
-            SinusEquation sinus = (SinusEquation) equationMessage.getEquation();
+            EquationBinding binding = equationMessage.getEquation();
+            SinusEquation sinus = (SinusEquation) binding.getOriginalEquation();
             logger.info("Received summative equation to derivate: " + sinus.getUserReadableString());
 
             //TODO: Derivate content
@@ -29,7 +33,8 @@ public class DerivateSinusEquationBehaviour extends Behaviour {
             AbstractEquation derivated = new CosinusEquation(content);
             logger.info("Derivated summative equation to:" + derivated.getUserReadableString());
 
-            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), derivated)).build());
+            binding.setResultEquation(derivated);
+            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), binding)).build());
         });
     }
 

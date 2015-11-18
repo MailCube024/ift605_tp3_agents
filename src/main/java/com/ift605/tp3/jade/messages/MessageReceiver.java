@@ -53,7 +53,7 @@ public class MessageReceiver {
 
         if (message != null) {
             try {
-                contentReceiver.onMessage(new EquationMessage(message.getSender(), (Equation) message.getContentObject()));
+                contentReceiver.onMessage(new EquationMessage(message.getSender(), (EquationBinding) message.getContentObject(), message.getPerformative()));
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }
