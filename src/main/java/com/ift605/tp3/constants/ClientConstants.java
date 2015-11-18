@@ -7,4 +7,5 @@ public class ClientConstants {
     public static final int SHUTDOWN = 0;
     public static final int DERIVATE = 1;
     public static final int RESPONSE = 2;
+    public static final int NORESPONSE = 3;
 }

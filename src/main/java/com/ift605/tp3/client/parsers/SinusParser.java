@@ -6,6 +6,7 @@
 package com.ift605.tp3.client.parsers;
 
 import udes.ds.agent.AbstractEquation;
+import udes.ds.agent.SinusEquation;
 
 /**
  *
@@ -21,8 +22,7 @@ public class SinusParser implements IEquationParser{
         int indexClose = entry.indexOf(")");
         AbstractEquation inside = parser.ParseEquation(entry.substring(indexOpen+1,indexClose).trim());
         
-//        return new SinusEquation(inside);
-        return null;
+       return new SinusEquation(inside);
     }
     
 }
