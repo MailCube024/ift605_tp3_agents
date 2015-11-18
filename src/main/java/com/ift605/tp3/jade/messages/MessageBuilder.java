@@ -51,6 +51,12 @@ public class MessageBuilder {
         return this;
     }
 
+    public MessageBuilder withMessageContent(EquationMessage eqMsg) throws IOException{
+        message.setSender(eqMsg.getSender());
+        message.setContentObject(eqMsg.getEquation());
+        return this;
+    }
+
     public ACLMessage build() {
         return message;
     }
@@ -68,4 +74,12 @@ public class MessageBuilder {
         return null;
     }
 
+    public MessageBuilder withContent(EquationMessage eqMsg){
+        try{
+            return withMessageContent(eqMsg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

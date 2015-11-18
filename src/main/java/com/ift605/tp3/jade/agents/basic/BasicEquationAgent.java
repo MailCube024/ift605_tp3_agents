@@ -35,7 +35,7 @@ public class BasicEquationAgent extends Agent {
 //        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
 
         final String clientAgent = (String) this.getArguments()[0];
-        addBehaviour(new DerivateBasicEquationBehaviour(clientAgent));
+        addBehaviour(new DerivateBasicEquationBehaviour());
     }
 
     @Override

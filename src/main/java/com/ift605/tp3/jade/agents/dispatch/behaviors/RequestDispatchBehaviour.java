@@ -28,7 +28,7 @@ public class RequestDispatchBehaviour extends Behaviour {
             logger.info("Request to derivate equation type : " + equationClass);
             if (searchDFAgent(equationClass) != null) {
                 logger.info("Search found an agent for this class : " + equationClass);
-                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equationMessage.getEquation()).build());
+                myAgent.send(request().to(searchDFAgent(equationClass)).withContent(equationMessage).build());
             } else {
                 logger.info("Message dropped : Unknown equation class");
             }
