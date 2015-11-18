@@ -17,25 +17,25 @@ public class BasicEquationAgent extends Agent {
 
     @Override
     public void setup() {
-//        try{
-//            DFAgentDescription dfd = new DFAgentDescription();
-//            dfd.setName(getAID());
-//
-//            ServiceDescription sd = new ServiceDescription();
-//            sd.setName("BasicEquationAgent");
-//            sd.setType("Derivation");
-//            dfd.addServices(sd);
-//            DFService.register(this, dfd);
-//        } catch (FIPAException e) {
-//            System.out.println(e.getACLMessage());
-//        }
+        try{
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
 
-        logger.info("Basic Equation Agent Started!");
+            ServiceDescription sd = new ServiceDescription();
+            sd.setName("BasicEquationAgent");
+            sd.setType("Derivation");
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+        } catch (FIPAException e) {
+            System.out.println(e.getACLMessage());
+        }
+
 //        final String otherAgentName = (String) this.getArguments()[0];
 //        addBehaviour(new DerivateBasicEquationBehaviour(otherAgentName));
 
-        final String clientAgent = (String) this.getArguments()[0];
         addBehaviour(new DerivateBasicEquationBehaviour());
+        logger.info("Basic Equation Agent Started!");
+
     }
 
     @Override

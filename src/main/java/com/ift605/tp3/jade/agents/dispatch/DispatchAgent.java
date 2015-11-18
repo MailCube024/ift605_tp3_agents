@@ -33,6 +33,8 @@ public class DispatchAgent extends Agent{
 
         addBehaviour(new RequestDispatchBehaviour());
         addBehaviour(new InformDispatchBehaviour());
+
+        logger.info("Dispatch Agent Started");
     }
 
     @Override
