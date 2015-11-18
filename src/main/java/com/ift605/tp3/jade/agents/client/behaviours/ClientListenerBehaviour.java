@@ -2,6 +2,7 @@ package com.ift605.tp3.jade.agents.client.behaviours;
 
 import com.ift605.tp3.constants.ClientConstants;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import jade.lang.acl.ACLMessage;
@@ -31,12 +32,6 @@ public class ClientListenerBehaviour extends Behaviour {
             ge.addParameter(response.getEquation().getResultEquation());
             agent.postGuiEvent(ge);
         });
-//        listen(agent,this).forRequest(response -> {
-//            logger.info("Received response from request for derivation.");
-//            GuiEvent ge = new GuiEvent(this, ClientConstants.RESPONSE);
-//            ge.addParameter(response.getEquation());
-//            agent.postGuiEvent(ge);
-//        });
     }
 
     @Override

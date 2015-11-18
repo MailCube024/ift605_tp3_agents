@@ -7,7 +7,6 @@ import com.ift605.tp3.jade.agents.client.behaviours.ClientListenerBehaviour;
 import com.ift605.tp3.jade.helper.DispatcherFinder;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.AID;
-import jade.domain.introspection.ACLMessage;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import org.slf4j.Logger;
@@ -24,13 +23,13 @@ public class ClientAgent extends GuiAgent {
     private static final Logger logger = LoggerFactory.getLogger(ClientAgent.class);
 
     transient protected DerivationForm form;
+    private AID dispatcher;
+    private ClientListenerBehaviour listener;
 
     @Override
     public void setup() {
         form = new DerivationForm(this);
         form.setVisible(true);
-
-        addBehaviour(new ClientListenerBehaviour(this));
 
         logger.info("Client agent started");
     }
@@ -49,16 +48,23 @@ public class ClientAgent extends GuiAgent {
                 AID dispatcher = DispatcherFinder.getDispatcherAID(this);
                 ClearMessageQueue();
                 send(request().to(dispatcher).withContent(new EquationMessage(getAID(), eq)).build());
+
+                listener = new ClientListenerBehaviour(this);
+                addBehaviour(listener);
                 addBehaviour(new ClientCancelRequestWakerBehaviour(this, 1000 * 15));
                 break;
             case ClientConstants.RESPONSE:
                 logger.info("Received derivation from system. Sending output");
                 AbstractEquation derivated = (AbstractEquation) guiEvent.getParameter(0);
                 form.receiveDerivation(derivated);
+                removeBehaviour(listener);
+
                 break;
             case ClientConstants.NORESPONSE:
                 logger.info("Timeout expired. Cancelling derivation request.");
                 form.logMessage("Could not derivate last equation.");
+                removeBehaviour(listener);
+
                 break;
             case ClientConstants.SHUTDOWN:
                 logger.info("Closing event received. Requesting closure of agent to platform.");
@@ -70,6 +76,6 @@ public class ClientAgent extends GuiAgent {
     }
 
     private void ClearMessageQueue() {
-        while(receive() != null);
+        while (receive() != null) ;
     }
 }

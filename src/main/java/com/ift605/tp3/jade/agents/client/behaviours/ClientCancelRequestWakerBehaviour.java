@@ -2,6 +2,7 @@ package com.ift605.tp3.jade.agents.client.behaviours;
 
 import com.ift605.tp3.constants.ClientConstants;
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.WakerBehaviour;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
