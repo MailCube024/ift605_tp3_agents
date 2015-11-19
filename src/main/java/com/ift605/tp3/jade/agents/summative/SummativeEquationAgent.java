@@ -1,6 +1,7 @@
 package com.ift605.tp3.jade.agents.summative;
 
 import com.ift605.tp3.jade.agents.summative.behaviors.DerivateSummativeEquationBehaviour;
+import com.ift605.tp3.jade.agents.summative.behaviors.DerivatedSummativeListenerBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -8,12 +9,29 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import udes.ds.agent.AbstractEquation;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Michael on 2015-11-14.
  */
 public class SummativeEquationAgent extends Agent {
     private static final Logger logger = LoggerFactory.getLogger(SummativeEquationAgent.class);
+    private static Map<String, AbstractEquation> derivateMap = new HashMap<>();
+
+    public boolean containsEquation(String key){
+        return derivateMap.containsKey(key);
+    }
+
+    public AbstractEquation getEquation(String key){
+        return derivateMap.get(key);
+    }
+
+    public AbstractEquation putEquation(String key, AbstractEquation equation){
+        return derivateMap.put(key,equation);
+    }
 
     @Override
     public void setup() {
@@ -30,7 +48,8 @@ public class SummativeEquationAgent extends Agent {
             System.out.println(e.getACLMessage());
         }
 
-        addBehaviour(new DerivateSummativeEquationBehaviour());
+        addBehaviour(new DerivateSummativeEquationBehaviour(this));
+        addBehaviour(new DerivatedSummativeListenerBehaviour(this));
 
         logger.info("Summative agent started");
     }
