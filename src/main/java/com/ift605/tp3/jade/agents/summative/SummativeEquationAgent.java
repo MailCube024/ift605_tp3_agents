@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.agents.summative;
 
+import com.ift605.tp3.jade.agents.contracts.CompositeEquationAgent;
 import com.ift605.tp3.jade.agents.summative.behaviors.DerivateSummativeEquationBehaviour;
 import com.ift605.tp3.jade.agents.summative.behaviors.DerivatedSummativeListenerBehaviour;
 import jade.core.Agent;
@@ -17,21 +18,8 @@ import java.util.Map;
 /**
  * Created by Michael on 2015-11-14.
  */
-public class SummativeEquationAgent extends Agent {
+public class SummativeEquationAgent extends CompositeEquationAgent {
     private static final Logger logger = LoggerFactory.getLogger(SummativeEquationAgent.class);
-    private static Map<String, AbstractEquation> derivateMap = new HashMap<>();
-
-    public boolean containsEquation(String key){
-        return derivateMap.containsKey(key);
-    }
-
-    public AbstractEquation getEquation(String key){
-        return derivateMap.get(key);
-    }
-
-    public AbstractEquation putEquation(String key, AbstractEquation equation){
-        return derivateMap.put(key,equation);
-    }
 
     @Override
     public void setup() {

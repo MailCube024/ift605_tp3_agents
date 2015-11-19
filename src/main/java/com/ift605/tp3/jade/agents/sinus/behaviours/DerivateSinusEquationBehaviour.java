@@ -1,17 +1,18 @@
 package com.ift605.tp3.jade.agents.sinus.behaviours;
 
+import com.ift605.tp3.jade.agents.sinus.SinusEquationAgent;
+import com.ift605.tp3.jade.helper.DispatcherFinder;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import udes.ds.agent.AbstractEquation;
-import udes.ds.agent.CosinusEquation;
-import udes.ds.agent.Equation;
-import udes.ds.agent.SinusEquation;
+import udes.ds.agent.*;
 
 import static com.ift605.tp3.jade.messages.MessageBuilder.inform;
+import static com.ift605.tp3.jade.messages.MessageBuilder.request;
 import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
 
 /**
@@ -19,22 +20,31 @@ import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
  */
 public class DerivateSinusEquationBehaviour extends Behaviour {
     private static final Logger logger = LoggerFactory.getLogger(DerivateSinusEquationBehaviour.class);
+    private final SinusEquationAgent agent;
+
+    public DerivateSinusEquationBehaviour(SinusEquationAgent sinusEquationAgent) {
+        this.agent = sinusEquationAgent;
+    }
 
     @Override
     public void action() {
-        listen(myAgent, this).forRequest(equationMessage -> {
+        listen(agent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            SinusEquation sinus = (SinusEquation) binding.getOriginalEquation();
-            logger.info("Received summative equation to derivate: " + sinus.getUserReadableString());
+            SinusEquation summative = (SinusEquation) binding.getOriginalEquation();
+            logger.info("Received summative equation to derivate: " + summative.getUserReadableString());
 
-            //TODO: Derivate content
-            AbstractEquation content = sinus.getInside();
+            if (agent.containsEquation(summative.getInside().getUserReadableString())) {
+                AbstractEquation content = agent.getEquation(summative.getInside().getUserReadableString());
 
-            AbstractEquation derivated = new CosinusEquation(content);
-            logger.info("Derivated summative equation to:" + derivated.getUserReadableString());
+                CosinusEquation derivated = new CosinusEquation(content);
+                logger.info("Derivated sinus equation to:" + derivated.getUserReadableString());
 
-            binding.setResultEquation(derivated);
-            myAgent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), binding)).build());
+                binding.setResultEquation(derivated);
+                agent.send(inform().to(equationMessage.getSender()).withContent(new EquationMessage(equationMessage.getSender(), binding)).build());
+            } else {
+                agent.send(request().to(DispatcherFinder.getDispatcherAID(agent)).withContent(new EquationMessage(agent.getAID(), summative.getInside())).build());
+                agent.send(request().to(agent.getAID()).withContent(equationMessage).build());
+            }
         });
     }
 

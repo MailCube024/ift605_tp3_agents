@@ -29,7 +29,7 @@ public class DerivateSummativeEquationBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
+        listen(agent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
             SummativeEquation summative = (SummativeEquation) binding.getOriginalEquation();
             logger.info("Received summative equation to derivate: " + summative.getUserReadableString());

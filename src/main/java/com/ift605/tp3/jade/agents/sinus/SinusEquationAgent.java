@@ -1,6 +1,8 @@
 package com.ift605.tp3.jade.agents.sinus;
 
+import com.ift605.tp3.jade.agents.contracts.CompositeEquationAgent;
 import com.ift605.tp3.jade.agents.sinus.behaviours.DerivateSinusEquationBehaviour;
+import com.ift605.tp3.jade.agents.sinus.behaviours.DerivatedSinusListenerBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -12,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Michaël on 11/17/2015.
  */
-public class SinusEquationAgent extends Agent {
+public class SinusEquationAgent extends CompositeEquationAgent {
     private static final Logger logger = LoggerFactory.getLogger(SinusEquationAgent.class);
 
     @Override
@@ -30,7 +32,8 @@ public class SinusEquationAgent extends Agent {
             System.out.println(e.getACLMessage());
         }
 
-        addBehaviour(new DerivateSinusEquationBehaviour());
+        addBehaviour(new DerivateSinusEquationBehaviour(this));
+        addBehaviour(new DerivatedSinusListenerBehaviour(this));
 
         logger.info("Sinus agent started");
     }
