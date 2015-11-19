@@ -30,7 +30,7 @@ public class DerivateSinusEquationBehaviour extends Behaviour {
     public void action() {
         listen(agent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            SinusEquation summative = (SinusEquation) binding.getOriginalEquation();
+            SinusEquation summative = (SinusEquation) binding.getStartingEquation();
             logger.info("Received summative equation to derivate: " + summative.getUserReadableString());
 
             if (agent.containsEquation(summative.getInside().getUserReadableString())) {

@@ -12,6 +12,6 @@ public class DerivativeUtils {
     }
 
     public static double diffDerivate(Equation initial, Equation derivate, double x, double epsilon){
-        return calculateDerivate(initial,x,epsilon) - derivate.getFunctionValue(x);
+        return Math.abs(calculateDerivate(initial,x,epsilon) - derivate.getFunctionValue(x));
     }
 }

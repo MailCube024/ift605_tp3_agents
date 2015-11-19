@@ -2,9 +2,7 @@ package com.ift605.tp3.jade.agents.basic.behaviors;
 
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
-import com.sun.xml.internal.org.jvnet.staxex.NamespaceContextEx;
 import jade.core.behaviours.Behaviour;
-import jade.lang.acl.ACLMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import udes.ds.agent.BasicEquation;
@@ -22,7 +20,7 @@ public class DerivateBasicEquationBehaviour extends Behaviour {
     public void action() {
         listen(myAgent, this).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            BasicEquation basic = (BasicEquation) binding.getOriginalEquation();
+            BasicEquation basic = (BasicEquation) binding.getStartingEquation();
             logger.info("Received basic equation to derivate: " + basic.getUserReadableString());
             logger.info("Type of equation: name (" + equationMessage.getEquation().getClass().getSimpleName() + ")");
 

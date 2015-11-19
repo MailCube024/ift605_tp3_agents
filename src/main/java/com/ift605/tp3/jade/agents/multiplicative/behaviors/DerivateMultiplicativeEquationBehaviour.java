@@ -4,14 +4,11 @@ import com.ift605.tp3.jade.agents.multiplicative.MultiplicativeEquationAgent;
 import com.ift605.tp3.jade.helper.DispatcherFinder;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
-import com.sun.xml.internal.org.jvnet.staxex.NamespaceContextEx;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.management.resources.agent;
-import udes.ds.agent.AbstractEquation;
 import udes.ds.agent.MultiplicativeEquation;
 import udes.ds.agent.SummativeEquation;
 
@@ -34,7 +31,7 @@ public class DerivateMultiplicativeEquationBehaviour extends Behaviour {
     public void action() {
         listen(agent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            MultiplicativeEquation multiplicative = (MultiplicativeEquation) binding.getOriginalEquation();
+            MultiplicativeEquation multiplicative = (MultiplicativeEquation) binding.getStartingEquation();
             logger.info("Received summative equation to derivate: " + multiplicative.getUserReadableString());
 
             if (agent.containsEquation(multiplicative.getFirst().getUserReadableString())

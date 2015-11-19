@@ -16,7 +16,7 @@ public class EquationBinding implements Serializable {
         this.resultEquation = resultEquation;
     }
 
-    public Equation getOriginalEquation() {
+    public Equation getStartingEquation() {
         return originalEquation;
     }
 

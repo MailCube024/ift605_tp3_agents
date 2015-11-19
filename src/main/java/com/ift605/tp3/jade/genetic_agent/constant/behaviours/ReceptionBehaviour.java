@@ -21,11 +21,11 @@ public class ReceptionBehaviour extends Behaviour {
             EquationBinding binding = equationMessage.getEquation();
 
             if (firstStageBehaviour == null){
-                firstStageBehaviour = new StageBehaviour(binding.getOriginalEquation());
+                firstStageBehaviour = new StageBehaviour(binding.getStartingEquation());
                 myAgent.addBehaviour(firstStageBehaviour);
             }
             else
-                firstStageBehaviour.setOriginalEquation(binding.getOriginalEquation());
+                firstStageBehaviour.setOriginalEquation(binding.getStartingEquation());
         });
     }
 

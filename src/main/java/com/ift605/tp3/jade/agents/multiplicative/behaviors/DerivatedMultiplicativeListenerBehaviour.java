@@ -1,7 +1,6 @@
 package com.ift605.tp3.jade.agents.multiplicative.behaviors;
 
 import com.ift605.tp3.jade.agents.multiplicative.MultiplicativeEquationAgent;
-import com.ift605.tp3.jade.agents.summative.SummativeEquationAgent;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -28,7 +27,7 @@ public class DerivatedMultiplicativeListenerBehaviour extends Behaviour {
     public void action() {
         listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.INFORM)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            AbstractEquation equation = (AbstractEquation) binding.getOriginalEquation();
+            AbstractEquation equation = (AbstractEquation) binding.getStartingEquation();
             agent.putEquation(equation.getUserReadableString(), (AbstractEquation) binding.getResultEquation());
         });
     }
