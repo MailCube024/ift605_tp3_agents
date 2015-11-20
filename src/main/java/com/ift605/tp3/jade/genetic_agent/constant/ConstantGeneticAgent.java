@@ -1,6 +1,6 @@
 package com.ift605.tp3.jade.genetic_agent.constant;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.ReceptionBehaviour;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.ConstantReceptionBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -22,7 +22,7 @@ public class ConstantGeneticAgent extends Agent{
             dfd.setName(getAID());
 
             ServiceDescription sd = new ServiceDescription();
-            sd.setName("ConstantAgent");
+            sd.setName("ConstantGeneticAgent");
             sd.setType("Derivation");
             dfd.addServices(sd);
             DFService.register(this, dfd);
@@ -30,7 +30,7 @@ public class ConstantGeneticAgent extends Agent{
             System.out.println(e.getACLMessage());
         }
 
-        addBehaviour(new ReceptionBehaviour());
+        addBehaviour(new ConstantReceptionBehaviour());
         logger.info("Constant Genetic Agent Running!");
     }
 

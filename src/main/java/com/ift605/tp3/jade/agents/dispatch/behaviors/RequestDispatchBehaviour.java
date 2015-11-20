@@ -26,7 +26,7 @@ public class RequestDispatchBehaviour extends Behaviour {
     public void action() {
         listen(myAgent, this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            String equationClass = binding.getStartingEquation().getClass().getSimpleName() + "Agent";
+            String equationClass = binding.getStartingEquation().getClass().getSimpleName() + "GeneticAgent";
             logger.info("Request to derivate equation type : " + equationClass);
             AID agentID = searchDFAgent(equationClass);
             if (agentID != null) {
