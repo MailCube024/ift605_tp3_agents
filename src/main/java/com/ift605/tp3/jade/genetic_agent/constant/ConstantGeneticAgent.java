@@ -1,7 +1,6 @@
 package com.ift605.tp3.jade.genetic_agent.constant;
 
 import com.ift605.tp3.jade.genetic_agent.constant.behaviours.ReceptionBehaviour;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.StageBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;

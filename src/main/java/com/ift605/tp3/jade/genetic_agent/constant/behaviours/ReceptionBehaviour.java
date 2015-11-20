@@ -9,23 +9,18 @@ import static com.ift605.tp3.jade.messages.MessageReceiver.listen;
  * Created by Utilisateur on 2015-11-19.
  */
 public class ReceptionBehaviour extends Behaviour {
-    private StageBehaviour firstStageBehaviour;
-
-    public ReceptionBehaviour() {
-        this.firstStageBehaviour = null;
-    }
+    private EvaluateBehaviour evaluateBehaviour;
 
     @Override
     public void action() {
         listen(myAgent, this).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-
-            if (firstStageBehaviour == null){
-                firstStageBehaviour = new StageBehaviour(binding.getStartingEquation());
-                myAgent.addBehaviour(firstStageBehaviour);
+            if (evaluateBehaviour == null){
+                evaluateBehaviour = new EvaluateBehaviour();
+                evaluateBehaviour.setRequestInformation(binding.getStartingEquation(),equationMessage.getSender());
+                myAgent.addBehaviour(evaluateBehaviour);
             }
-            else
-                firstStageBehaviour.setOriginalEquation(binding.getStartingEquation());
+            evaluateBehaviour.setEquationToDerivate(binding.getStartingEquation());
         });
     }
 

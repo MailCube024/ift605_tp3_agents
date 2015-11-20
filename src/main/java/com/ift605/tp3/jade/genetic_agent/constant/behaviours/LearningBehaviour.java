@@ -1,23 +1,25 @@
 package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
 
 import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.OperationBehaviour;
-import com.ift605.tp3.jade.messages.EquationBinding;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.SequentialBehaviour;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.AddOneBehaviour;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.SubstractOneBehaviour;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.TimeZeroBehaviour;
+import jade.core.behaviours.*;
 import udes.ds.agent.Equation;
 
 /**
  * Created by Utilisateur on 2015-11-18.
  */
-public class StageBehaviour extends SequentialBehaviour {
+public class LearningBehaviour extends SequentialBehaviour {
     private double closestDiff;
-    private CyclicBehaviour bestBehaviour;
-    private EquationBinding equations;
+    private OperationBehaviour bestBehaviour;
+    private Equation equation;
+    private Equation resultEquation;
 
-    public StageBehaviour(Equation evalEquation) {
+    public LearningBehaviour() {
+        equation = ((EvaluateBehaviour)getParent()).getResultingEquation();
         this.closestDiff = Integer.MAX_VALUE;
         this.bestBehaviour = null;
-        this.equations = new EquationBinding(evalEquation, null);
 
         addSubBehaviour(new AddOneBehaviour());
         addSubBehaviour(new SubstractOneBehaviour());
@@ -40,24 +42,15 @@ public class StageBehaviour extends SequentialBehaviour {
         this.bestBehaviour = currentBehaviour;
     }
 
-    public EquationBinding getEquations() {
-        return equations;
+    public Equation getResultEquation() {
+        return resultEquation;
     }
 
     public Equation getStartingEquation() {
-        return this.equations.getStartingEquation();
+        return equation;
     }
 
-    public Equation getResultEquation() {
-        return this.equations.getResultEquation();
+    public void setResultEquation(Equation resultEquation) {
+        this.resultEquation = resultEquation;
     }
-
-    public void setOriginalEquation(Equation equation) {
-        this.equations.setOriginalEquation(equation);
-    }
-
-    public void setResultEquation(Equation equation) {
-        this.equations.setResultEquation(equation);
-    }
-
 }
