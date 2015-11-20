@@ -1,6 +1,5 @@
-package com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract;
+package com.ift605.tp3.jade.genetic_agent.behaviours.contract;
 
-import udes.ds.agent.Constant;
 import udes.ds.agent.Equation;
 
 /**

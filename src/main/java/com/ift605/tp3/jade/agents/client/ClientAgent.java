@@ -51,7 +51,7 @@ public class ClientAgent extends GuiAgent {
                 send(request().to(dispatcher).withContent(new EquationMessage(getAID(), eq)).build());
 
                 listener = new ClientListenerBehaviour(this);
-                waker = new ClientCancelRequestWakerBehaviour(this, 1000 * 15);
+                waker = new ClientCancelRequestWakerBehaviour(this, 1000 * 150);
 
                 addBehaviour(listener);
                 addBehaviour(waker);

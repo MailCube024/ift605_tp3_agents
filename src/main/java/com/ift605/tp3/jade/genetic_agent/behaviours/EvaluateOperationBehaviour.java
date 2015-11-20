@@ -1,7 +1,6 @@
-package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
+package com.ift605.tp3.jade.genetic_agent.behaviours;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
-import jade.core.behaviours.CyclicBehaviour;
+import com.ift605.tp3.jade.genetic_agent.behaviours.contract.Operation;
 import jade.core.behaviours.OneShotBehaviour;
 
 /**

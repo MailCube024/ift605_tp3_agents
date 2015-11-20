@@ -1,6 +1,6 @@
-package com.ift605.tp3.jade.genetic_agent.constant;
+package com.ift605.tp3.jade.genetic_agent.basic;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.ConstantReceptionBehaviour;
+import com.ift605.tp3.jade.genetic_agent.basic.behaviours.BasicEquationReceptionBehaviour;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Utilisateur on 2015-11-18.
  */
-public class ConstantGeneticAgent extends Agent{
-    private static final Logger logger = LoggerFactory.getLogger(ConstantGeneticAgent.class);
+public class BasicEquationGeneticAgent extends Agent {
+    private static final Logger logger = LoggerFactory.getLogger(BasicEquationGeneticAgent.class);
 
     @Override
     public void setup() {
@@ -22,7 +22,7 @@ public class ConstantGeneticAgent extends Agent{
             dfd.setName(getAID());
 
             ServiceDescription sd = new ServiceDescription();
-            sd.setName("ConstantGeneticAgent");
+            sd.setName("BasicEquationGeneticAgent");
             sd.setType("Derivation");
             dfd.addServices(sd);
             DFService.register(this, dfd);
@@ -30,8 +30,8 @@ public class ConstantGeneticAgent extends Agent{
             System.out.println(e.getACLMessage());
         }
 
-        addBehaviour(new ConstantReceptionBehaviour());
-        logger.info("Constant Genetic Agent Running!");
+        addBehaviour(new BasicEquationReceptionBehaviour());
+        logger.info("Basic Genetic Agent Running!");
     }
 
     @Override

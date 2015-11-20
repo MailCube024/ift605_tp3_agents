@@ -1,16 +1,14 @@
-package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
+package com.ift605.tp3.jade.genetic_agent.behaviours;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.AddOneOperator;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.SubstractOneOperator;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.TimeZeroOperator;
-import jade.core.behaviours.*;
+import com.ift605.tp3.jade.genetic_agent.behaviours.contract.Operation;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.*;
+import jade.core.behaviours.SequentialBehaviour;
 import udes.ds.agent.Equation;
 
 /**
  * Created by Utilisateur on 2015-11-18.
  */
-public class LearningBehaviour extends SequentialBehaviour {
+public abstract class LearningBehaviour extends SequentialBehaviour {
     private double closestDiff;
     private Equation equation;
     private Equation resultEquation;
@@ -18,12 +16,8 @@ public class LearningBehaviour extends SequentialBehaviour {
 
     public LearningBehaviour(Equation equation) {
         this.equation = equation;
-        this.closestDiff = Integer.MAX_VALUE;
+        this.closestDiff = Double.MAX_VALUE;
         this.bestOperation = null;
-
-        addSubBehaviour(new LearningOperationBehaviour(new AddOneOperator()));
-        addSubBehaviour(new LearningOperationBehaviour(new SubstractOneOperator()));
-        //addSubBehaviour(new LearningOperationBehaviour(new TimeZeroOperator()));
     }
 
     public double getClosestDiff() {
@@ -52,5 +46,12 @@ public class LearningBehaviour extends SequentialBehaviour {
 
     public void setBestOperation(Operation bestOperation) {
         this.bestOperation = bestOperation;
+    }
+
+    public Equation getOriginalEquation() {
+        if(LearningBehaviour.class.isInstance(parent))
+            return ((LearningBehaviour)parent).getOriginalEquation();
+        else
+            return ((EvaluateBehaviour)parent).getOriginalEquation();
     }
 }

@@ -95,7 +95,7 @@
             </build>
         </profile>
         <profile>
-            <id>jade-agent-genetic</id>
+            <id>jade-genetic-agent</id>
             <build>
                 <plugins>
                     <plugin>

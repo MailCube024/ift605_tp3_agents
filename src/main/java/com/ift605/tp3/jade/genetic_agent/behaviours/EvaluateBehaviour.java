@@ -1,6 +1,6 @@
-package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
+package com.ift605.tp3.jade.genetic_agent.behaviours;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
+import com.ift605.tp3.jade.genetic_agent.behaviours.contract.Operation;
 import com.ift605.tp3.jade.helper.DerivativeUtils;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
@@ -15,14 +15,16 @@ import static com.ift605.tp3.jade.messages.MessageBuilder.inform;
 /**
  * Created by Michaël on 11/19/2015.
  */
-public class EvaluateBehaviour extends SequentialBehaviour {
+public abstract class EvaluateBehaviour extends SequentialBehaviour {
     private static final Logger logger = LoggerFactory.getLogger(EvaluateBehaviour.class);
 
     private Equation toDerivate;
-    private Equation result;
+    protected Equation result;
 
-    private LearningBehaviour operations;
+    protected LearningBehaviour operations;
     private AID requester;
+
+    protected abstract void setOperations();
 
     public void setRequestInformation(Equation startingEquation, AID sender) {
         toDerivate = startingEquation;
@@ -34,9 +36,17 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         return result;
     }
 
+    public Equation getOriginalEquation() {
+        return toDerivate;
+    }
+
     public void setResultingEquation(Equation resultingEquation) {
         this.result = resultingEquation;
-        double diff = DerivativeUtils.diffDerivate(toDerivate, result, 10, 0.01);
+        double diff = DerivativeUtils.ratioDerivate(toDerivate, result, 2, Math.pow(10, -10));
+        double diff2 = DerivativeUtils.ratioDerivate(toDerivate, result, 100, Math.pow(10, -10));
+        double diff3 = DerivativeUtils.ratioDerivate(toDerivate, result, 1000, Math.pow(10, -10));
+        diff = (diff + diff2 + diff3) / 3;
+
         if (diff < 0.01) {
             // Found a solution - Inform requester
             SendResult();
@@ -57,25 +67,28 @@ public class EvaluateBehaviour extends SequentialBehaviour {
     public int onEnd() {
         // If we added an operations behaviour to learn derivation
         if (operations != null) {
-            logger.info("Removing learning behaviour. Collecting prospect behaviour");
+            //logger.info("Removing learning behaviour. Collecting prospect behaviour");
             removeSubBehaviour(operations);
             Operation best = operations.getBestOperation();
             addSubBehaviour(new EvaluateOperationBehaviour(best));
-            logger.info("Adding behavior of type: " + best.getClass().getSimpleName());
+            //logger.info("Adding behavior of type: " + best.getClass().getSimpleName());
 
             result = operations.getResultEquation();
             logger.info("Temporary best equation: " + result.getUserReadableString());
         }
 
         //Check if result equation gives correct derivation
-        double diff = DerivativeUtils.diffDerivate(toDerivate, result, 10, 0.01);
+        double diff = DerivativeUtils.ratioDerivate(toDerivate, result, 2, Math.pow(10, -10));
+        double diff2 = DerivativeUtils.ratioDerivate(toDerivate, result, 100, Math.pow(10, -10));
+        double diff3 = DerivativeUtils.ratioDerivate(toDerivate, result, 1000, Math.pow(10, -10));
+        diff = (diff + diff2 + diff3) / 3;
+
         if (diff < 0.01) {
             // Found a solution - Inform requester
             SendResult();
-            operations = null;
         } else {
             logger.info("Result " + result.getUserReadableString() + " is not close enough to expectation. Restarting process. Difference:(" + diff + ")");
-            operations = new LearningBehaviour(result);
+            setOperations();
             addSubBehaviour(operations);
         }
 
