@@ -16,8 +16,8 @@ public class LearningBehaviour extends SequentialBehaviour {
     private Equation resultEquation;
     private Operation bestOperation;
 
-    public LearningBehaviour() {
-        equation = ((EvaluateBehaviour) getParent()).getResultingEquation();
+    public LearningBehaviour(Equation equation) {
+        this.equation = equation;
         this.closestDiff = Integer.MAX_VALUE;
         this.bestOperation = null;
 

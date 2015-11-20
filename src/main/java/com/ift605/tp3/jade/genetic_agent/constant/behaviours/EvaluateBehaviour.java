@@ -26,6 +26,7 @@ public class EvaluateBehaviour extends SequentialBehaviour {
 
     public void setRequestInformation(Equation startingEquation, AID sender) {
         toDerivate = startingEquation;
+        result = toDerivate;
         this.requester = sender;
     }
 
@@ -64,12 +65,12 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         if (diff < 0.01) {
             // Found a solution - Inform requester
             logger.info("Found an equation " + result.getUserReadableString() + "! Sending message to client");
+            myAgent.send(inform().to(requester).withContent(new EquationMessage(requester, new EquationBinding(toDerivate, result))).build());
             toDerivate = null;
             result = null;
-            myAgent.send(inform().to(requester).withContent(new EquationMessage(requester, new EquationBinding(toDerivate, result))).build());
         } else {
             logger.info("Result " + result.getUserReadableString() + " is not close enough to expectation. Restarting process. Difference:(" + diff + ")");
-            operations = new LearningBehaviour();
+            operations = new LearningBehaviour(result);
             addSubBehaviour(operations);
         }
 

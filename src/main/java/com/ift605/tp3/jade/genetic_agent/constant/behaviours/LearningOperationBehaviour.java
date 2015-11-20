@@ -10,15 +10,14 @@ import udes.ds.agent.Equation;
  */
 public class LearningOperationBehaviour extends OneShotBehaviour {
     private final Operation operation;
-    private LearningBehaviour myParent;
 
     protected LearningOperationBehaviour(Operation operation) {
-        myParent = (LearningBehaviour) parent;
         this.operation = operation;
     }
 
     @Override
     public void action() {
+        LearningBehaviour myParent = (LearningBehaviour) getParent();
         Equation original = myParent.getStartingEquation();
         Equation modified = operation.apply(original);
         double diff = DerivativeUtils.diffDerivate(original, modified, 2, 0.01);

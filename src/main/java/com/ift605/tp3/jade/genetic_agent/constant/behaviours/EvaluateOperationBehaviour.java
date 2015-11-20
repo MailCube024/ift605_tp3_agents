@@ -8,15 +8,14 @@ import jade.core.behaviours.CyclicBehaviour;
  */
 public class EvaluateOperationBehaviour extends CyclicBehaviour {
     private final Operation operation;
-    private final EvaluateBehaviour myParent;
 
     public EvaluateOperationBehaviour(Operation op){
         this.operation = op;
-        this.myParent = (EvaluateBehaviour)getParent();
     }
 
     @Override
     public void action() {
+        EvaluateBehaviour myParent = (EvaluateBehaviour)getParent();
         myParent.setResultingEquation(operation.apply(myParent.getResultingEquation()));
     }
 }

@@ -94,6 +94,28 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>jade-agent-genetic</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.3.2</version>
+                        <configuration>
+                            <mainClass>jade.Boot</mainClass>
+                            <arguments>
+                                <argument>-conf</argument>
+                                <argument>src/main/resources/jade-genetic-agent-container.properties</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <dependencies>
