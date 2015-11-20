@@ -15,12 +15,11 @@ public class ReceptionBehaviour extends Behaviour {
     public void action() {
         listen(myAgent, this).forRequest(equationMessage -> {
             EquationBinding binding = equationMessage.getEquation();
-            if (evaluateBehaviour == null){
+            if (evaluateBehaviour == null) {
                 evaluateBehaviour = new EvaluateBehaviour();
-                evaluateBehaviour.setRequestInformation(binding.getStartingEquation(),equationMessage.getSender());
                 myAgent.addBehaviour(evaluateBehaviour);
             }
-            evaluateBehaviour.setEquationToDerivate(binding.getStartingEquation());
+            evaluateBehaviour.setRequestInformation(binding.getStartingEquation(), equationMessage.getSender());
         });
     }
 

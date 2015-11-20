@@ -1,9 +1,9 @@
 package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
 
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.OperationBehaviour;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.AddOneBehaviour;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.SubstractOneBehaviour;
-import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.TimeZeroBehaviour;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.AddOneOperator;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.SubstractOneOperator;
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.operations.TimeZeroOperator;
 import jade.core.behaviours.*;
 import udes.ds.agent.Equation;
 
@@ -12,18 +12,18 @@ import udes.ds.agent.Equation;
  */
 public class LearningBehaviour extends SequentialBehaviour {
     private double closestDiff;
-    private OperationBehaviour bestBehaviour;
     private Equation equation;
     private Equation resultEquation;
+    private Operation bestOperation;
 
     public LearningBehaviour() {
-        equation = ((EvaluateBehaviour)getParent()).getResultingEquation();
+        equation = ((EvaluateBehaviour) getParent()).getResultingEquation();
         this.closestDiff = Integer.MAX_VALUE;
-        this.bestBehaviour = null;
+        this.bestOperation = null;
 
-        addSubBehaviour(new AddOneBehaviour());
-        addSubBehaviour(new SubstractOneBehaviour());
-        addSubBehaviour(new TimeZeroBehaviour());
+        addSubBehaviour(new LearningOperationBehaviour(new AddOneOperator()));
+        addSubBehaviour(new LearningOperationBehaviour(new SubstractOneOperator()));
+        addSubBehaviour(new LearningOperationBehaviour(new TimeZeroOperator()));
     }
 
     public double getClosestDiff() {
@@ -34,12 +34,8 @@ public class LearningBehaviour extends SequentialBehaviour {
         this.closestDiff = closestDiff;
     }
 
-    public CyclicBehaviour getBestBehaviour() {
-        return bestBehaviour;
-    }
-
-    public void setBestOperationBehaviour(OperationBehaviour currentBehaviour) {
-        this.bestBehaviour = currentBehaviour;
+    public Operation getBestOperation() {
+        return bestOperation;
     }
 
     public Equation getResultEquation() {
@@ -52,5 +48,9 @@ public class LearningBehaviour extends SequentialBehaviour {
 
     public void setResultEquation(Equation resultEquation) {
         this.resultEquation = resultEquation;
+    }
+
+    public void setBestOperation(Operation bestOperation) {
+        this.bestOperation = bestOperation;
     }
 }

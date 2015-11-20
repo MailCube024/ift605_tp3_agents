@@ -1,5 +1,6 @@
 package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
 
+import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
 import com.ift605.tp3.jade.helper.DerivativeUtils;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
@@ -24,31 +25,39 @@ public class EvaluateBehaviour extends SequentialBehaviour {
     private LearningBehaviour operations;
     private AID requester;
 
+    public void setRequestInformation(Equation startingEquation, AID sender) {
+        toDerivate = startingEquation;
+        this.requester = sender;
+    }
+
     public Equation getResultingEquation() {
         return result;
     }
 
-    public void setEquationToDerivate(Equation eq) {
-        toDerivate = eq;
+    public void setResultingEquation(Equation resultingEquation) {
+        this.result = resultingEquation;
     }
 
     @Override
     public void onStart() {
         if (toDerivate == null) block();
+
+        result = toDerivate;
         super.onStart();
     }
 
     @Override
     public int onEnd() {
-
         // If we added an operations behaviour to learn derivation
         if (operations != null) {
             logger.info("Removing learning behaviour. Collecting prospect behaviour");
             removeSubBehaviour(operations);
-            Behaviour best = operations.getBestBehaviour();
-            addSubBehaviour(best);
+            Operation best = operations.getBestOperation();
+            addSubBehaviour(new EvaluateOperationBehavior(best));
             logger.info("Adding behavior of type: " + best.getClass().getSimpleName());
+
             result = operations.getResultEquation();
+            logger.info("Temporary best equation: " + result.getUserReadableString());
         }
 
         //Check if result equation gives correct derivation
@@ -58,7 +67,7 @@ public class EvaluateBehaviour extends SequentialBehaviour {
             logger.info("Found an equation " + result.getUserReadableString() + "! Sending message to client");
             toDerivate = null;
             result = null;
-            myAgent.send(inform().to(requester).withContent(new EquationMessage(requester,new EquationBinding(toDerivate,result))).build());
+            myAgent.send(inform().to(requester).withContent(new EquationMessage(requester, new EquationBinding(toDerivate, result))).build());
         } else {
             logger.info("Result " + result.getUserReadableString() + " is not close enough to expectation. Restarting process. Difference:(" + diff + ")");
             operations = new LearningBehaviour();
@@ -70,9 +79,6 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         myAgent.addBehaviour(this);
         return super.onEnd();
     }
-
-    public void setRequestInformation(Equation startingEquation, AID sender) {
-        toDerivate = startingEquation;
-        this.requester = sender;
-    }
 }
+
+
