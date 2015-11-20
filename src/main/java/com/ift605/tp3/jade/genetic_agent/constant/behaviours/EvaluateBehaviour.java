@@ -36,6 +36,13 @@ public class EvaluateBehaviour extends SequentialBehaviour {
 
     public void setResultingEquation(Equation resultingEquation) {
         this.result = resultingEquation;
+        double diff = DerivativeUtils.diffDerivate(toDerivate, result, 10, 0.01);
+        if (diff < 0.01) {
+            // Found a solution - Inform requester
+            SendResult();
+            reset();
+            block();
+        }
     }
 
     @Override
@@ -64,10 +71,7 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         double diff = DerivativeUtils.diffDerivate(toDerivate, result, 10, 0.01);
         if (diff < 0.01) {
             // Found a solution - Inform requester
-            logger.info("Found an equation " + result.getUserReadableString() + "! Sending message to client");
-            myAgent.send(inform().to(requester).withContent(new EquationMessage(requester, new EquationBinding(toDerivate, result))).build());
-            toDerivate = null;
-            result = null;
+            SendResult();
         } else {
             logger.info("Result " + result.getUserReadableString() + " is not close enough to expectation. Restarting process. Difference:(" + diff + ")");
             operations = new LearningBehaviour(result);
@@ -78,6 +82,13 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         reset();
         myAgent.addBehaviour(this);
         return super.onEnd();
+    }
+
+    private void SendResult() {
+        logger.info("Found an equation " + result.getUserReadableString() + "! Sending message to client");
+        myAgent.send(inform().to(requester).withContent(new EquationMessage(requester, new EquationBinding(toDerivate, result))).build());
+        toDerivate = null;
+        result = null;
     }
 }
 
