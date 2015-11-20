@@ -23,7 +23,7 @@ public class LearningBehaviour extends SequentialBehaviour {
 
         addSubBehaviour(new LearningOperationBehaviour(new AddOneOperator()));
         addSubBehaviour(new LearningOperationBehaviour(new SubstractOneOperator()));
-        addSubBehaviour(new LearningOperationBehaviour(new TimeZeroOperator()));
+        //addSubBehaviour(new LearningOperationBehaviour(new TimeZeroOperator()));
     }
 
     public double getClosestDiff() {

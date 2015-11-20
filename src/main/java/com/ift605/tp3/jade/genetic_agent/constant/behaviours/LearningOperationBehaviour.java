@@ -20,7 +20,7 @@ public class LearningOperationBehaviour extends OneShotBehaviour {
         LearningBehaviour myParent = (LearningBehaviour) getParent();
         Equation original = myParent.getStartingEquation();
         Equation modified = operation.apply(original);
-        double diff = DerivativeUtils.diffDerivate(original, modified, 2, 0.01);
+        double diff = DerivativeUtils.diffDerivate(original, modified, 10, 0.01);
 
         if (myParent.getClosestDiff() > diff) {
             myParent.setClosestDiff(diff);

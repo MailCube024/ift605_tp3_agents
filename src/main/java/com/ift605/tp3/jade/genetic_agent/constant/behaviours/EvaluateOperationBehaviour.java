@@ -2,11 +2,12 @@ package com.ift605.tp3.jade.genetic_agent.constant.behaviours;
 
 import com.ift605.tp3.jade.genetic_agent.constant.behaviours.contract.Operation;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 
 /**
  * Created by Michaël on 11/19/2015.
  */
-public class EvaluateOperationBehaviour extends CyclicBehaviour {
+public class EvaluateOperationBehaviour extends OneShotBehaviour {
     private final Operation operation;
 
     public EvaluateOperationBehaviour(Operation op){

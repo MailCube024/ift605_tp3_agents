@@ -72,6 +72,7 @@ public class EvaluateBehaviour extends SequentialBehaviour {
         if (diff < 0.01) {
             // Found a solution - Inform requester
             SendResult();
+            operations = null;
         } else {
             logger.info("Result " + result.getUserReadableString() + " is not close enough to expectation. Restarting process. Difference:(" + diff + ")");
             operations = new LearningBehaviour(result);
