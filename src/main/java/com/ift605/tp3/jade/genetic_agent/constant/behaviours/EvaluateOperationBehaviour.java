@@ -6,11 +6,11 @@ import jade.core.behaviours.CyclicBehaviour;
 /**
  * Created by Michaël on 11/19/2015.
  */
-public class EvaluateOperationBehavior extends CyclicBehaviour {
+public class EvaluateOperationBehaviour extends CyclicBehaviour {
     private final Operation operation;
     private final EvaluateBehaviour myParent;
 
-    public EvaluateOperationBehavior(Operation op){
+    public EvaluateOperationBehaviour(Operation op){
         this.operation = op;
         this.myParent = (EvaluateBehaviour)getParent();
     }

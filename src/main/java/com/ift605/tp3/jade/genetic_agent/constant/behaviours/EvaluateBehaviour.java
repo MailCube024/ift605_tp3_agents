@@ -5,7 +5,6 @@ import com.ift605.tp3.jade.helper.DerivativeUtils;
 import com.ift605.tp3.jade.messages.EquationBinding;
 import com.ift605.tp3.jade.messages.EquationMessage;
 import jade.core.AID;
-import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class EvaluateBehaviour extends SequentialBehaviour {
             logger.info("Removing learning behaviour. Collecting prospect behaviour");
             removeSubBehaviour(operations);
             Operation best = operations.getBestOperation();
-            addSubBehaviour(new EvaluateOperationBehavior(best));
+            addSubBehaviour(new EvaluateOperationBehaviour(best));
             logger.info("Adding behavior of type: " + best.getClass().getSimpleName());
 
             result = operations.getResultEquation();
